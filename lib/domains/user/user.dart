@@ -14,6 +14,8 @@ class User with _$User {
   const factory User({
     @Id() required String id,
     required String uid,
+    required String nickname,
+    required DateTime createdAt,
   }) = _User;
 
   factory User.fromJson(Map<String, Object?> json) => _$UserFromJson(json);
