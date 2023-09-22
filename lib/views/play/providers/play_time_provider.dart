@@ -20,7 +20,7 @@ class PlayTimeNotifier extends _$PlayTimeNotifier {
 
   void start() {
     _stopwatch.start();
-    _timer ??= Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       state = _format(_stopwatch.elapsed.inSeconds);
     });
   }

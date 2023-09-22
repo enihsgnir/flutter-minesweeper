@@ -24,7 +24,7 @@ class BoardStatusNotifier extends _$BoardStatusNotifier {
       ref.invalidate(cellsLeftNotifierProvider);
       ref.invalidate(minesLeftNotifierProvider);
       ref.invalidate(logNotifierProvider);
-      ref.invalidate(playTimeNotifierProvider);
+      ref.read(playTimeNotifierProvider.notifier).reset();
 
       final config = ref.read(boardConfigNotifierProvider);
       for (int i = 0; i < config.rowCount; i++) {
