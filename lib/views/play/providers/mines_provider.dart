@@ -41,7 +41,7 @@ class MinesNotifier extends _$MinesNotifier {
   ) {
     return {
       firstClick,
-      ...firstClick.adjacent(config.rowCount, config.colCount)
+      ...firstClick.adjacent(config.rowCount, config.colCount),
     };
   }
 }
