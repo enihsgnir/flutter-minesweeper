@@ -23,8 +23,13 @@ class BoardSquare extends ConsumerWidget {
           ref.read(playTimeNotifierProvider.notifier).start();
         }
 
+        if (cell.status != CellStatus.closed) {
+          return;
+        }
+
         if (cell.hasMine) {
           ref.read(cellNotifierProvider(pos).notifier).setOpen();
+          ref.read(logNotifierProvider.notifier).add(pos);
         } else {
           ref.read(cellNotifierProvider(pos).notifier).open();
         }
