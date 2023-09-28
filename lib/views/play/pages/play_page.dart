@@ -31,7 +31,7 @@ class PlayPage extends ConsumerWidget {
           children: [
             Container(
               color: appBarColor,
-              width: config.size * config.colCount,
+              width: config.size * config.difficulty.colCount,
               height: 60,
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -42,15 +42,15 @@ class PlayPage extends ConsumerWidget {
               ),
             ),
             SizedBox(
-              width: config.size * config.colCount,
-              height: config.size * config.rowCount,
+              width: config.size * config.difficulty.colCount,
+              height: config.size * config.difficulty.rowCount,
               child: GridView.count(
                 shrinkWrap: true,
-                crossAxisCount: config.colCount,
+                crossAxisCount: config.difficulty.colCount,
                 children: List.generate(
-                  config.rowCount * config.colCount,
+                  config.difficulty.rowCount * config.difficulty.colCount,
                   (index) {
-                    final colCount = config.colCount;
+                    final colCount = config.difficulty.colCount;
                     final pos = (index ~/ colCount, index % colCount);
                     return BoardSquare(pos);
                   },

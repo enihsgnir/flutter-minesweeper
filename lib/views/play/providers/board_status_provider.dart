@@ -27,8 +27,8 @@ class BoardStatusNotifier extends _$BoardStatusNotifier {
       ref.read(playTimeNotifierProvider.notifier).reset();
 
       final config = ref.read(boardConfigNotifierProvider);
-      for (int i = 0; i < config.rowCount; i++) {
-        for (int j = 0; j < config.colCount; j++) {
+      for (int i = 0; i < config.difficulty.rowCount; i++) {
+        for (int j = 0; j < config.difficulty.colCount; j++) {
           ref.invalidate(cellNotifierProvider((i, j)));
         }
       }

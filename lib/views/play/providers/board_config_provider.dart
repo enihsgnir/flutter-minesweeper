@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter_minesweeper/models/difficulty.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -26,9 +27,11 @@ class BoardConfigNotifier extends _$BoardConfigNotifier {
 
   void setToCustom(int rowCount, int colCount) {
     state = BoardConfig(
-      rowCount: rowCount,
-      colCount: colCount,
-      mineCount: rowCount * colCount ~/ 5,
+      difficulty: Difficulty(
+        rowCount: rowCount,
+        colCount: colCount,
+        mineCount: rowCount * colCount ~/ 5,
+      ),
       size: 500 / max(rowCount, colCount),
     );
   }

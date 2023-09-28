@@ -8,7 +8,7 @@ class MinesLeftNotifier extends _$MinesLeftNotifier {
   @override
   int build() {
     final config = ref.watch(boardConfigNotifierProvider);
-    return config.mineCount;
+    return config.difficulty.mineCount;
   }
 
   void increase() {

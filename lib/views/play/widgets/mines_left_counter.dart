@@ -11,7 +11,8 @@ class MinesLeftCounter extends ConsumerWidget {
     final config = ref.watch(boardConfigNotifierProvider);
     final minesLeft = ref.watch(minesLeftNotifierProvider);
 
-    final count = status == BoardStatus.ready ? config.mineCount : minesLeft;
+    final count =
+        status == BoardStatus.ready ? config.difficulty.mineCount : minesLeft;
 
     return Text(
       count.toString(),

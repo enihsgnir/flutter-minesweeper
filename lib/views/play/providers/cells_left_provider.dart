@@ -8,7 +8,7 @@ class CellsLeftNotifier extends _$CellsLeftNotifier {
   @override
   int build() {
     final config = ref.watch(boardConfigNotifierProvider);
-    return config.rowCount * config.colCount;
+    return config.difficulty.rowCount * config.difficulty.colCount;
   }
 
   void decrease() {

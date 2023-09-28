@@ -20,9 +20,9 @@ class MinesNotifier extends _$MinesNotifier {
     mines.addAll(offset);
 
     final random = Random();
-    while (mines.length < config.mineCount + offset.length) {
-      final row = random.nextInt(config.rowCount);
-      final col = random.nextInt(config.colCount);
+    while (mines.length < config.difficulty.mineCount + offset.length) {
+      final row = random.nextInt(config.difficulty.rowCount);
+      final col = random.nextInt(config.difficulty.colCount);
       mines.add((row, col));
     }
 
@@ -41,7 +41,10 @@ class MinesNotifier extends _$MinesNotifier {
   ) {
     return {
       firstClick,
-      ...firstClick.adjacent(config.rowCount, config.colCount),
+      ...firstClick.adjacent(
+        config.difficulty.rowCount,
+        config.difficulty.colCount,
+      ),
     };
   }
 }

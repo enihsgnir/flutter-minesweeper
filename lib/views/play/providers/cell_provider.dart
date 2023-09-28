@@ -22,7 +22,9 @@ class CellNotifier extends _$CellNotifier {
 
     final config = ref.watch(boardConfigNotifierProvider);
     final pos = (state.row, state.col);
-    pos.adjacent(config.rowCount, config.colCount).forEach((element) {
+    pos
+        .adjacent(config.difficulty.rowCount, config.difficulty.colCount)
+        .forEach((element) {
       ref.read(cellNotifierProvider(element).notifier).increaseMineCount();
     });
   }
@@ -54,7 +56,7 @@ class CellNotifier extends _$CellNotifier {
       if (cell.minesAround == MineCount.zero) {
         final config = ref.read(boardConfigNotifierProvider);
         p
-            .adjacent(config.rowCount, config.colCount)
+            .adjacent(config.difficulty.rowCount, config.difficulty.colCount)
             .where((element) => !_cellAt(element).hasMine)
             .forEach(q.add);
       }

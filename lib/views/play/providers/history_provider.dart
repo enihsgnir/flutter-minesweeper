@@ -19,13 +19,13 @@ class HistoryNotifier extends _$HistoryNotifier {
     final log = ref.read(logNotifierProvider);
     final time = ref.read(playTimeNotifierProvider);
 
-    int toIndex((int, int) pos) => pos.$1 * config.colCount + pos.$2;
+    int toIndex((int, int) pos) => pos.$1 * config.difficulty.colCount + pos.$2;
 
     return Game(
       id: "",
       userId: "",
-      row: config.rowCount,
-      col: config.colCount,
+      row: config.difficulty.rowCount,
+      col: config.difficulty.colCount,
       mineIndice: mines.map(toIndex).toList(),
       logIndice: log.map(toIndex).toList(),
       playTime: time,
