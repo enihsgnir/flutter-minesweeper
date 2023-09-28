@@ -17,6 +17,7 @@ class HistoryNotifier extends _$HistoryNotifier {
     final config = ref.read(boardConfigNotifierProvider);
     final mines = ref.read(minesNotifierProvider);
     final log = ref.read(logNotifierProvider);
+    final time = ref.read(playTimeNotifierProvider);
 
     int toIndex((int, int) pos) => pos.$1 * config.colCount + pos.$2;
 
@@ -28,6 +29,7 @@ class HistoryNotifier extends _$HistoryNotifier {
       mineIndice: mines.map(toIndex).toList(),
       logIndice: log.map(toIndex).toList(),
       createdAt: DateTime.now(),
+      playTime: int.parse(time),
     );
   }
 
