@@ -59,8 +59,6 @@ class CellNotifier extends _$CellNotifier {
             .forEach(q.add);
       }
     }
-
-    ref.read(logNotifierProvider.notifier).add(pos);
   }
 
   void toggle() {
@@ -74,7 +72,5 @@ class CellNotifier extends _$CellNotifier {
       case CellStatus.open:
         return;
     }
-
-    ref.read(logNotifierProvider.notifier).add(-pos);
   }
 }
