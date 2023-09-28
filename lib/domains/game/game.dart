@@ -20,8 +20,8 @@ class Game with _$Game {
     required int col,
     required List<int> mineIndice,
     required List<int> logIndice,
-    required DateTime createdAt,
     required int playTime,
+    required DateTime createdAt,
   }) = _Game;
 
   const Game._();
