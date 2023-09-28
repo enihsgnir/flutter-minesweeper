@@ -10,7 +10,7 @@ class PlayTimeStopwatch extends ConsumerWidget {
     final time = ref.watch(playTimeNotifierProvider);
 
     return Text(
-      time,
+      time.toString().padLeft(3, "0"),
       style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
