@@ -19,7 +19,7 @@ class HistoryNotifier extends _$HistoryNotifier {
     final log = ref.read(logNotifierProvider);
     final time = ref.read(playTimeNotifierProvider);
 
-    int toIndex((int, int) pos) => pos.$1 * config.colCount + pos.$2;
+    final toIndex = config.toIndex;
 
     return Game(
       id: "",
