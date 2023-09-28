@@ -29,13 +29,14 @@ class BoardSquare extends ConsumerWidget {
 
         if (cell.hasMine) {
           ref.read(cellNotifierProvider(pos).notifier).setOpen();
-          ref.read(logNotifierProvider.notifier).add(pos);
         } else {
           ref.read(cellNotifierProvider(pos).notifier).open();
         }
+        ref.read(logNotifierProvider.notifier).add(pos);
       },
       onSecondaryTap: () {
         ref.read(cellNotifierProvider(pos).notifier).toggle();
+        ref.read(logNotifierProvider.notifier).add(-pos);
       },
       splashColor: Colors.grey,
       child: Container(
