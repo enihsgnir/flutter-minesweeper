@@ -9,7 +9,17 @@ class MainPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: const Drawer(),
+      drawer: Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () => context.pushNamed(AppRoute.leaderboard.name),
+              child: const Text("Leaderboard"),
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: TextButton(
           onPressed: () => context.pushNamed(AppRoute.play.name),

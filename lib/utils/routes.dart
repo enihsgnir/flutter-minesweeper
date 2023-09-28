@@ -1,3 +1,4 @@
+import 'package:flutter_minesweeper/views/leaderboard/pages/leaderboard_page.dart';
 import 'package:flutter_minesweeper/views/main_page.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +6,7 @@ import 'package:go_router/go_router.dart';
 enum AppRoute {
   main,
   play,
+  leaderboard,
 }
 
 final router = GoRouter(
@@ -18,6 +20,11 @@ final router = GoRouter(
       path: "/play",
       name: AppRoute.play.name,
       builder: (context, state) => const PlayPage(),
+    ),
+    GoRoute(
+      path: "/leaderboard",
+      name: AppRoute.leaderboard.name,
+      builder: (context, state) => const LeaderboardPage(),
     ),
   ],
 );
