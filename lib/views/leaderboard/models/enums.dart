@@ -3,5 +3,3 @@ enum Difficulty {
   medium,
   hard,
 }
-
-const difficulties = Difficulty.values;

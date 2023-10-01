@@ -12,7 +12,7 @@ class DifficultyBar extends ConsumerWidget {
       color: appBarColor,
       height: 50,
       child: Row(
-        children: difficulties
+        children: Difficulty.values
             .map((difficulty) => _DifficultyItem(difficulty: difficulty))
             .toList(),
       ),
