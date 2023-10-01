@@ -1,4 +1,4 @@
-name: build
+name: CI/CD
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  set_up:
     runs-on: ubuntu-latest
 
     steps:
@@ -21,11 +21,36 @@ jobs:
 
       - run: dart run build_runner build --delete-conflicting-outputs
 
+  analyze:
+    needs: set_up
+
+    runs-on: ubuntu-latest
+
+    steps:
       - run: flutter analyze
+
+  custom_lint:
+    needs: set_up
+
+    runs-on: ubuntu-latest
+
+    steps:
       - run: dart run custom_lint
 
+  test:
+    needs: set_up
+
+    runs-on: ubuntu-latest
+
+    steps:
       - run: flutter test
 
+  build:
+    needs: test
+
+    runs-on: ubuntu-latest
+
+    steps:
       - uses: bluefireteam/flutter-gh-pages@v8
         with:
           baseHref: /${{ github.event.repository.name }}/
