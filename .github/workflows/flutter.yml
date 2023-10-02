@@ -118,11 +118,12 @@ jobs:
       - custom_lint
       - build
 
+    if: always()
+
     runs-on: ubuntu-latest
 
     steps:
-      - if: always()
-        uses: geekyeggo/delete-artifact@v2
+      - uses: geekyeggo/delete-artifact@v2
         with:
           name: generated-code
           failOnError: false
