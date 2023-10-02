@@ -26,7 +26,7 @@ jobs:
 
       - run: flutter test
 
-      - uses: bluefireteam/flutter-gh-pages@v8
+      - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: bluefireteam/flutter-gh-pages@v8
         with:
           baseHref: /${{ github.event.repository.name }}/
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
