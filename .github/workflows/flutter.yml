@@ -21,12 +21,31 @@ jobs:
 
       - run: dart run build_runner build --delete-conflicting-outputs
 
+      - uses: actions/upload-artifact@v3
+        with:
+          name: generated-code
+          path: |
+            **/*.freezed.dart
+            **/*.g.dart
+
   analyze:
     needs: set_up
 
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          cache: true
+
+      - run: flutter pub get
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: generated-code
+
       - run: flutter analyze
 
   custom_lint:
@@ -35,6 +54,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          cache: true
+
+      - run: flutter pub get
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: generated-code
+
       - run: dart run custom_lint
 
   test:
@@ -43,15 +74,55 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          cache: true
+
+      - run: flutter pub get
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: generated-code
+
       - run: flutter test
 
   build:
     needs: test
 
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v3
+
+      - uses: subosito/flutter-action@v2
+        with:
+          cache: true
+
+      - run: flutter pub get
+
+      - uses: actions/download-artifact@v3
+        with:
+          name: generated-code
+
       - uses: bluefireteam/flutter-gh-pages@v8
         with:
           baseHref: /${{ github.event.repository.name }}/
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+  tear_down:
+    needs:
+      - analyze
+      - custom_lint
+      - build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - if: always()
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: generated-code
+          failOnError: false
