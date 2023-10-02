@@ -1,4 +1,4 @@
-name: build
+name: CI/CD
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  ci-cd:
     runs-on: ubuntu-latest
 
     steps:
