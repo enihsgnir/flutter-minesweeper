@@ -18,7 +18,16 @@ class ScoreRecords extends ConsumerWidget {
           .whereCol(isEqualTo: difficulty.col)
           .limit(10),
       builder: (context, snapshot, child) {
-        if (snapshot.hasError) return const Text("error");
+        if (snapshot.hasError) {
+          return Container(
+            color: closedPrimaryColor,
+            width: double.infinity,
+            height: 400,
+            child: const Center(
+              child: Text("error"),
+            ),
+          );
+        }
         if (!snapshot.hasData) return const Text("Loading...");
 
         final docs = snapshot.data!.docs;
