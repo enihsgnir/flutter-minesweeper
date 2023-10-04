@@ -1,5 +1,5 @@
 import 'package:flutter_minesweeper/views/leaderboard/pages/leaderboard_page.dart';
-import 'package:flutter_minesweeper/views/main_page.dart';
+import 'package:flutter_minesweeper/views/main/main_view.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:go_router/go_router.dart';
 
