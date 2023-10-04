@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:flutter_minesweeper/domains/game/game.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,8 +7,8 @@ part 'history_provider.g.dart';
 @riverpod
 class HistoryNotifier extends _$HistoryNotifier {
   @override
-  Queue<Game> build() {
-    return Queue();
+  List<Game> build() {
+    return [];
   }
 
   Game _toGame() {
@@ -19,7 +17,7 @@ class HistoryNotifier extends _$HistoryNotifier {
     final log = ref.read(logNotifierProvider);
     final time = ref.read(playTimeNotifierProvider);
 
-    int toIndex((int, int) pos) => pos.$1 * config.colCount + pos.$2;
+    final toIndex = config.toIndex;
 
     return Game(
       id: "",
@@ -35,12 +33,6 @@ class HistoryNotifier extends _$HistoryNotifier {
 
   void writeCurrentBoard() {
     final game = _toGame();
-    const maxHistoryLength = 8;
-    if (state.length == maxHistoryLength) {
-      state.removeFirst();
-    }
-    state.add(game);
-
-    state = Queue.of(state);
+    state = [...state, game];
   }
 }

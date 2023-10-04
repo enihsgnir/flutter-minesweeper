@@ -7,14 +7,10 @@ class MinesLeftCounter extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final status = ref.watch(boardStatusNotifierProvider);
-    final config = ref.watch(boardConfigNotifierProvider);
     final minesLeft = ref.watch(minesLeftNotifierProvider);
 
-    final count = status == BoardStatus.ready ? config.mineCount : minesLeft;
-
     return Text(
-      count.toString(),
+      minesLeft.toString(),
       style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.bold,
