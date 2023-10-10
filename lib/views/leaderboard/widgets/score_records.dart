@@ -1,6 +1,7 @@
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_minesweeper/domains/game/game.dart';
+import 'package:flutter_minesweeper/domains/user/user.dart';
 import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -70,9 +71,23 @@ class RecordItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: game != null
             ? [
-                Text(game!.userId),
-                Text(game!.playTime.toString()),
-                Text(game!.createdAt.toString()),
+                Flexible(
+                  child: FirestoreBuilder(
+                    ref: userRef.whereUid(isEqualTo: game!.userId),
+                    builder: (context, snapshot, child) {
+                      if (snapshot.hasError) return const Text("error");
+
+                      if (!snapshot.hasData) return const Text("no data");
+
+                      final data = snapshot.data!;
+                      return Text(data.docs[0].data.nickname);
+                    },
+                  ),
+                ),
+                Flexible(
+                  child: Text(game!.playTime.toString()),
+                ),
+                Flexible(child: Text(game!.createdAt.toString())),
               ]
             : [],
       ),
