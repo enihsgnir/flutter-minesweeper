@@ -1,8 +1,6 @@
-import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_minesweeper/domains/game/game.dart';
-import 'package:flutter_minesweeper/domains/user/user.dart';
-import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
+import 'package:flutter_minesweeper/views/leaderboard/models/game_record.dart';
+import 'package:flutter_minesweeper/views/leaderboard/providers/records_provider.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,50 +9,34 @@ class ScoreRecords extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final difficulty = ref.watch(difficultyNotifierProvider);
+    final records = ref.watch(recordsNotifierProvider);
 
-    return FirestoreBuilder<GameQuerySnapshot>(
-      ref: gameRef
-          .whereRow(isEqualTo: difficulty.row)
-          .whereCol(isEqualTo: difficulty.col)
-          .limit(10),
-      builder: (context, snapshot, child) {
-        if (snapshot.hasError) {
-          return Container(
-            color: closedPrimaryColor,
-            width: double.infinity,
-            height: 400,
-            child: const Center(
-              child: Text("error"),
-            ),
-          );
-        }
-        if (!snapshot.hasData) return const Text("Loading...");
-
-        final docs = snapshot.data!.docs;
-        return Column(
-          children: [
-            // at most 10 records
-            ...docs.map(
-              (game) => RecordItem(
-                game: game.data,
-                index: docs.indexOf(game),
+    return (records.isNotEmpty)
+        ? Column(
+            children: [
+              // at most 10 records
+              ...records.map(
+                (game) => RecordItem(
+                  game: game,
+                  index: records.indexOf(game),
+                ),
               ),
-            ),
-            // rest are null rows
-            ...List.generate(
-              10 - docs.length,
-              (index) => docs.length + index,
-            ).map((index) => RecordItem(game: null, index: index)),
-          ],
-        );
-      },
-    );
+              // rest are null rows
+              ...List.generate(
+                10 - records.length,
+                (index) => records.length + index,
+              ).map((index) => RecordItem(game: null, index: index)),
+            ],
+          )
+        : Container(
+            color: closedPrimaryColor,
+            height: 400,
+          );
   }
 }
 
 class RecordItem extends StatelessWidget {
-  final Game? game;
+  final GameRecord? game;
   final int index;
 
   const RecordItem({
@@ -72,17 +54,7 @@ class RecordItem extends StatelessWidget {
         children: game != null
             ? [
                 Flexible(
-                  child: FirestoreBuilder(
-                    ref: userRef.whereUid(isEqualTo: game!.userId),
-                    builder: (context, snapshot, child) {
-                      if (snapshot.hasError) return const Text("error");
-
-                      if (!snapshot.hasData) return const Text("no data");
-
-                      final data = snapshot.data!;
-                      return Text(data.docs[0].data.nickname);
-                    },
-                  ),
+                  child: Text(game!.nickname),
                 ),
                 Flexible(
                   child: Text(game!.playTime.toString()),

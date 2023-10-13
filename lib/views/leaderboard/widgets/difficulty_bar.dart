@@ -32,9 +32,11 @@ class _DifficultyItem extends ConsumerWidget {
     return Flexible(
       fit: FlexFit.tight,
       child: InkWell(
-        onTap: () => ref
-            .read(difficultyNotifierProvider.notifier)
-            .setDifficulty(difficulty.name),
+        onTap: () {
+          ref
+              .read(difficultyNotifierProvider.notifier)
+              .setDifficulty(difficulty.name);
+        },
         child: Center(
           child: Text(
             difficulty.name,
