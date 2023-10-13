@@ -11,9 +11,8 @@ class UserRepository {
       createdAt: DateTime.now(),
     );
 
-    final doc = await userRef.add(user);
-    final snapshot = await doc.get();
-    return snapshot.data ?? user;
+    await userRef.add(user);
+    return user;
   }
 
   Future<String> _generateNickname() async {
