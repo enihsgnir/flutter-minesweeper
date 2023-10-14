@@ -9,6 +9,9 @@ class PlayPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(logNotifierProvider);
+    ref.watch(historyNotifierProvider);
+
     ref.listen(winStatusNotifierProvider, (previous, next) {
       if (next != null) {
         ref.read(playTimeNotifierProvider.notifier).stop();
@@ -16,6 +19,7 @@ class PlayPage extends ConsumerWidget {
           case WinStatus.over:
             showOverDialog(context);
           case WinStatus.win:
+            ref.read(historyNotifierProvider.notifier).createGameRecord();
             showWinDialog(context);
         }
       }

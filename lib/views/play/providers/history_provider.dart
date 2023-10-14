@@ -1,4 +1,6 @@
 import 'package:flutter_minesweeper/domains/game/game.dart';
+import 'package:flutter_minesweeper/domains/game/game_repository.dart';
+import 'package:flutter_minesweeper/views/main/main_view.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -12,6 +14,8 @@ class HistoryNotifier extends _$HistoryNotifier {
   }
 
   Game _toGame() {
+    final user = ref.read(userNotifierProvider);
+
     final config = ref.read(boardConfigNotifierProvider);
     final mines = ref.read(minesNotifierProvider);
     final log = ref.read(logNotifierProvider);
@@ -21,7 +25,7 @@ class HistoryNotifier extends _$HistoryNotifier {
 
     return Game(
       id: "",
-      userId: "",
+      userId: user.id,
       row: config.rowCount,
       col: config.colCount,
       mineIndice: mines.map(toIndex).toList(),
@@ -34,5 +38,10 @@ class HistoryNotifier extends _$HistoryNotifier {
   void writeCurrentBoard() {
     final game = _toGame();
     state = [...state, game];
+  }
+
+  Future<void> createGameRecord() async {
+    final game = _toGame();
+    await GameRepository().addGame(game);
   }
 }
