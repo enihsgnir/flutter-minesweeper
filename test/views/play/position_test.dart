@@ -54,5 +54,29 @@ void main() {
         }
       }
     });
+
+    test("should be bijective", () {
+      final range = <(int, int)>{};
+      for (int i = 0; i < config.rowCount; i++) {
+        for (int j = 0; j < config.colCount; j++) {
+          range.add(-(i, j));
+        }
+      }
+
+      expect(range, hasLength(config.rowCount * config.colCount));
+    });
+
+    test("should have exclusive domain and range", () {
+      final domain = <(int, int)>[];
+      final range = <(int, int)>[];
+      for (int i = 0; i < config.rowCount; i++) {
+        for (int j = 0; j < config.colCount; j++) {
+          domain.add((i, j));
+          range.add(-(i, j));
+        }
+      }
+
+      expect(range, isNot(anyElement(isIn(domain))));
+    });
   });
 }
