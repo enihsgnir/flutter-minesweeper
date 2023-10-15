@@ -9,6 +9,7 @@ export 'providers/board_config_provider.dart';
 export 'providers/board_status_provider.dart';
 export 'providers/cell_provider.dart';
 export 'providers/cells_left_provider.dart';
+export 'providers/history_provider.dart';
 export 'providers/log_provider.dart';
 export 'providers/mines_left_provider.dart';
 export 'providers/mines_provider.dart';
