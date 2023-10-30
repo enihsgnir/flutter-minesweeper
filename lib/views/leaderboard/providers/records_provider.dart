@@ -1,4 +1,4 @@
-import 'package:flutter_minesweeper/views/leaderboard/models/game_record.dart';
+import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'records_provider.g.dart';

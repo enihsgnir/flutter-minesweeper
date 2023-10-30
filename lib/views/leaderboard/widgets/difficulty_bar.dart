@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_minesweeper/domains/game/game_repository.dart';
 import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
-import 'package:flutter_minesweeper/views/leaderboard/providers/records_provider.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

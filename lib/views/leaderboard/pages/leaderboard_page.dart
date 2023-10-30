@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_minesweeper/domains/auth/auth_repository.dart';
-import 'package:flutter_minesweeper/views/leaderboard/widgets/difficulty_bar.dart';
-import 'package:flutter_minesweeper/views/leaderboard/widgets/score_records.dart';
+import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LeaderboardPage extends ConsumerWidget {
