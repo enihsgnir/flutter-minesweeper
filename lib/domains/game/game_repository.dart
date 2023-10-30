@@ -23,7 +23,9 @@ class GameRepository {
       final nickname = await UserRepository().getNickname(data.userId);
 
       // can't find user with uid
-      if (nickname == null) continue;
+      if (nickname == null) {
+        continue;
+      }
 
       // append this data in result
       result.add(

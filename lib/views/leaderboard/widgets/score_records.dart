@@ -44,6 +44,7 @@ class RecordItem extends StatelessWidget {
     required this.game,
     required this.index,
   });
+
   @override
   Widget build(BuildContext context) {
     return Container(
