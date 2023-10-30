@@ -28,8 +28,8 @@ class HistoryNotifier extends _$HistoryNotifier {
       userId: user.id,
       row: config.rowCount,
       col: config.colCount,
-      mineIndice: mines.map(toIndex).toList(),
-      logIndice: log.map(toIndex).toList(),
+      mineIndexes: mines.map(toIndex).toList(),
+      logIndexes: log.map(toIndex).toList(),
       playTime: time,
       createdAt: DateTime.now(),
     );
