@@ -1,5 +1,4 @@
 import 'package:flutter_minesweeper/views/play/play_view.dart';
-import 'package:flutter_minesweeper/views/play/providers/history_provider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'board_status_provider.g.dart';

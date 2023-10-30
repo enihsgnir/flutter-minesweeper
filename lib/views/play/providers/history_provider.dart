@@ -1,6 +1,6 @@
-import 'dart:collection';
-
 import 'package:flutter_minesweeper/domains/game/game.dart';
+import 'package:flutter_minesweeper/domains/game/game_repository.dart';
+import 'package:flutter_minesweeper/views/main/main_view.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,25 +9,27 @@ part 'history_provider.g.dart';
 @riverpod
 class HistoryNotifier extends _$HistoryNotifier {
   @override
-  Queue<Game> build() {
-    return Queue();
+  List<Game> build() {
+    return [];
   }
 
   Game _toGame() {
+    final user = ref.read(userNotifierProvider);
+
     final config = ref.read(boardConfigNotifierProvider);
     final mines = ref.read(minesNotifierProvider);
     final log = ref.read(logNotifierProvider);
     final time = ref.read(playTimeNotifierProvider);
 
-    int toIndex((int, int) pos) => pos.$1 * config.colCount + pos.$2;
+    final toIndex = config.toIndex;
 
     return Game(
       id: "",
-      userId: "",
+      userId: user.id,
       row: config.rowCount,
       col: config.colCount,
-      mineIndice: mines.map(toIndex).toList(),
-      logIndice: log.map(toIndex).toList(),
+      mineIndexes: mines.map(toIndex).toList(),
+      logIndexes: log.map(toIndex).toList(),
       playTime: time,
       createdAt: DateTime.now(),
     );
@@ -35,12 +37,11 @@ class HistoryNotifier extends _$HistoryNotifier {
 
   void writeCurrentBoard() {
     final game = _toGame();
-    const maxHistoryLength = 8;
-    if (state.length == maxHistoryLength) {
-      state.removeFirst();
-    }
-    state.add(game);
+    state = [...state, game];
+  }
 
-    state = Queue.of(state);
+  Future<void> createGameRecord() async {
+    final game = _toGame();
+    await GameRepository().addGame(game);
   }
 }

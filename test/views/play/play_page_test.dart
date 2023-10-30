@@ -5,8 +5,14 @@ import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+Finder boardSquareAt((int, int) pos) {
+  return find.byWidgetPredicate(
+    (widget) => widget is BoardSquare && widget.pos == pos,
+  );
+}
+
 void main() {
-  testWidgets("", (tester) async {
+  testWidgets("play page test", (tester) async {
     await tester.pumpWidget(const ProviderScope(child: MainApp()));
 
     expect(find.byType(TextButton), findsOneWidget);
@@ -17,9 +23,7 @@ void main() {
     expect(find.byType(GridView), findsOneWidget);
     expect(find.byType(BoardSquare), findsWidgets);
 
-    final firstSquare = find.byWidgetPredicate(
-      (widget) => widget is BoardSquare && widget.pos == (0, 0),
-    );
+    final firstSquare = boardSquareAt((0, 0));
 
     await tester.tap(firstSquare, buttons: kSecondaryButton);
     await tester.pump();
