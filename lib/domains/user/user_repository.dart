@@ -5,7 +5,7 @@ import 'package:flutter_minesweeper/domains/user/user.dart';
 class UserRepository {
   Future<User> create(String uid) async {
     final user = User(
-      id: "",
+      id: uid,
       nickname: await _generateNickname(),
       createdAt: DateTime.now(),
     );
