@@ -28,9 +28,10 @@ class ScoreRecords extends ConsumerWidget {
               ).map((index) => RecordItem(game: null, index: index)),
             ],
           )
-        : Container(
-            color: closedPrimaryColor,
-            height: 400,
+        : Column(
+            children: List.generate(10, (index) => index)
+                .map((index) => RecordItem(game: null, index: index))
+                .toList(),
           );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_minesweeper/domains/game/game_repository.dart';
 import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
+import 'package:flutter_minesweeper/views/leaderboard/providers/records_provider.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,6 +38,15 @@ class _DifficultyItem extends ConsumerWidget {
           ref
               .read(difficultyNotifierProvider.notifier)
               .setDifficulty(difficulty.name);
+
+          final recordsNotifier = ref.read(recordsNotifierProvider.notifier);
+
+          recordsNotifier.clear();
+          GameRepository().getRecords(difficulty).then((records) {
+            for (final record in records) {
+              recordsNotifier.addRecord(record);
+            }
+          });
         },
         child: Center(
           child: Text(

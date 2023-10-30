@@ -14,7 +14,7 @@ class RecordsNotifier extends _$RecordsNotifier {
     state = [];
   }
 
-  void setState(List<GameRecord> records) {
-    state = records;
+  void addRecord(GameRecord record) {
+    state = [...state, record];
   }
 }
