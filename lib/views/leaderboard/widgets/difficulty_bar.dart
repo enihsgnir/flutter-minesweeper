@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_minesweeper/domains/game/game_repository.dart';
 import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,9 +33,19 @@ class _DifficultyItem extends ConsumerWidget {
     return Flexible(
       fit: FlexFit.tight,
       child: InkWell(
-        onTap: () => ref
-            .read(difficultyNotifierProvider.notifier)
-            .setDifficulty(difficulty.name),
+        onTap: () async {
+          ref
+              .read(difficultyNotifierProvider.notifier)
+              .setDifficulty(difficulty.name);
+
+          final recordsNotifier = ref.read(recordsNotifierProvider.notifier);
+          final records = await GameRepository().getRecords(difficulty);
+          recordsNotifier.clear();
+
+          for (final record in records) {
+            recordsNotifier.add(record);
+          }
+        },
         child: Center(
           child: Text(
             difficulty.name,

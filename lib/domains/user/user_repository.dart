@@ -28,4 +28,11 @@ class UserRepository {
     }
     return _generateNickname();
   }
+
+  Future<String?> getNickname(String uid) async {
+    final snapshot = await userRef.whereUid(isEqualTo: uid).get();
+
+    if (snapshot.docs.isEmpty) return null;
+    return snapshot.docs[0].data.nickname;
+  }
 }
