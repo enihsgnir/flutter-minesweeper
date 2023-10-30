@@ -19,17 +19,17 @@ class GameRepository {
         .get();
 
     for (final game in snapshot.docs.map((e) => e.data)) {
-      final nickname = await UserRepository().getNickname(game.userId);
+      final user = await UserRepository().getById(game.userId);
 
-      // can't find user with uid
-      if (nickname == null) {
+      // can't find user
+      if (user == null) {
         continue;
       }
 
       // append this data in result
       result.add(
         GameRecord(
-          nickname: nickname,
+          nickname: user.nickname,
           playTime: game.playTime,
           createdAt: game.createdAt,
         ),
