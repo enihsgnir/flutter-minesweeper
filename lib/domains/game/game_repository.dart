@@ -1,7 +1,6 @@
 import 'package:flutter_minesweeper/domains/game/game.dart';
 import 'package:flutter_minesweeper/domains/user/user_repository.dart';
 import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
-import 'package:flutter_minesweeper/views/leaderboard/models/game_record.dart';
 
 class GameRepository {
   Future<void> addGame(Game game) async {
