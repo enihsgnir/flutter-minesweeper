@@ -33,19 +33,18 @@ class _DifficultyItem extends ConsumerWidget {
     return Flexible(
       fit: FlexFit.tight,
       child: InkWell(
-        onTap: () {
+        onTap: () async {
           ref
               .read(difficultyNotifierProvider.notifier)
               .setDifficulty(difficulty.name);
 
           final recordsNotifier = ref.read(recordsNotifierProvider.notifier);
-
+          final records = await GameRepository().getRecords(difficulty);
           recordsNotifier.clear();
-          GameRepository().getRecords(difficulty).then((records) {
-            for (final record in records) {
-              recordsNotifier.addRecord(record);
-            }
-          });
+
+          for (final record in records) {
+            recordsNotifier.add(record);
+          }
         },
         child: Center(
           child: Text(
