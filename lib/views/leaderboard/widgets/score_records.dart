@@ -48,20 +48,22 @@ class RecordItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gameData = game;
+
     return Container(
       color: index.isEven ? closedPrimaryColor : closedSecondaryColor,
       height: 40,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: game != null
+        children: gameData != null
             ? [
                 Flexible(
-                  child: Text(game!.nickname),
+                  child: Text(gameData.nickname),
                 ),
                 Flexible(
-                  child: Text(game!.playTime.toString()),
+                  child: Text(gameData.playTime.toString()),
                 ),
-                Flexible(child: Text(game!.createdAt.toString())),
+                Flexible(child: Text(gameData.createdAt.toString())),
               ]
             : [],
       ),
