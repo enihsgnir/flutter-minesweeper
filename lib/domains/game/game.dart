@@ -18,8 +18,8 @@ class Game with _$Game {
     required String userId,
     required int row,
     required int col,
-    required List<int> mineIndice,
-    required List<int> logIndice,
+    required List<int> mineIndexes,
+    required List<int> logIndexes,
     required int playTime,
     required DateTime createdAt,
   }) = _Game;
@@ -27,9 +27,9 @@ class Game with _$Game {
   const Game._();
 
   List<(int, int)> get mines =>
-      mineIndice.map((e) => (e ~/ col, e % col)).toList();
+      mineIndexes.map((e) => (e ~/ col, e % col)).toList();
 
-  List<(int, int)> get log => logIndice
+  List<(int, int)> get log => logIndexes
       .map((e) => (e.sign * (e.abs() ~/ col), e.sign * (e.abs() % col)))
       .toList();
 
