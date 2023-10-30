@@ -18,9 +18,8 @@ class GameRepository {
         .limit(10)
         .get();
 
-    for (final game in snapshot.docs) {
-      final data = game.data;
-      final nickname = await UserRepository().getNickname(data.userId);
+    for (final game in snapshot.docs.map((e) => e.data)) {
+      final nickname = await UserRepository().getNickname(game.userId);
 
       // can't find user with uid
       if (nickname == null) {
@@ -31,8 +30,8 @@ class GameRepository {
       result.add(
         GameRecord(
           nickname: nickname,
-          playTime: data.playTime,
-          createdAt: data.createdAt,
+          playTime: game.playTime,
+          createdAt: game.createdAt,
         ),
       );
     }
