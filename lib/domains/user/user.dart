@@ -15,7 +15,6 @@ class User with _$User {
   @JsonSerializable(converters: firestoreJsonConverters)
   const factory User({
     @Id() required String id,
-    required String uid,
     required String nickname,
     required DateTime createdAt,
   }) = _User;
