@@ -26,6 +26,10 @@ class Game with _$Game {
 
   const Game._();
 
+  int get rowCount => difficulty.rowCount;
+  int get colCount => difficulty.colCount;
+  int get mineCount => difficulty.mineCount;
+
   List<(int, int)> get mines => mineIndices.map(difficulty.toPos).toList();
   List<(int, int)> get log => logIndices.map(difficulty.toPos).toList();
 
