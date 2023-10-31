@@ -12,10 +12,10 @@ class WinStatusNotifier extends _$WinStatusNotifier {
       return WinStatus.over;
     }
 
-    final config = ref.watch(boardConfigNotifierProvider);
+    final difficulty = ref.watch(playingDifficultyNotifierProvider);
     final cellsLeft = ref.watch(cellsLeftNotifierProvider);
     final minesLeft = ref.watch(minesLeftNotifierProvider);
-    if (cellsLeft > config.mineCount || minesLeft > 0) {
+    if (cellsLeft > difficulty.mineCount || minesLeft > 0) {
       return null;
     }
 

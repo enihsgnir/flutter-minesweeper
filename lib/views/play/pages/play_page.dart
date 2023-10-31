@@ -25,7 +25,7 @@ class PlayPage extends ConsumerWidget {
       }
     });
 
-    final config = ref.watch(boardConfigNotifierProvider);
+    final difficulty = ref.watch(playingDifficultyNotifierProvider);
 
     return Scaffold(
       appBar: AppBar(),
@@ -35,7 +35,7 @@ class PlayPage extends ConsumerWidget {
           children: [
             Container(
               color: appBarColor,
-              width: config.size * config.colCount,
+              width: difficulty.size * difficulty.colCount,
               height: 60,
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,15 +46,15 @@ class PlayPage extends ConsumerWidget {
               ),
             ),
             SizedBox(
-              width: config.size * config.colCount,
-              height: config.size * config.rowCount,
+              width: difficulty.size * difficulty.colCount,
+              height: difficulty.size * difficulty.rowCount,
               child: GridView.count(
                 shrinkWrap: true,
-                crossAxisCount: config.colCount,
+                crossAxisCount: difficulty.colCount,
                 children: List.generate(
-                  config.rowCount * config.colCount,
+                  difficulty.rowCount * difficulty.colCount,
                   (index) {
-                    final colCount = config.colCount;
+                    final colCount = difficulty.colCount;
                     final pos = (index ~/ colCount, index % colCount);
                     return BoardSquare(pos);
                   },

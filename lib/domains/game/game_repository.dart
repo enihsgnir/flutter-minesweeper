@@ -12,8 +12,7 @@ class GameRepository {
     final result = <GameRecord>[];
 
     final snapshot = await gameRef
-        .whereRow(isEqualTo: difficulty.row)
-        .whereCol(isEqualTo: difficulty.col)
+        .whereDifficulty(isEqualTo: difficulty)
         .orderByPlayTime()
         .limit(10)
         .get();

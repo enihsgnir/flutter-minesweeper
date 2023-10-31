@@ -7,8 +7,8 @@ part 'mines_left_provider.g.dart';
 class MinesLeftNotifier extends _$MinesLeftNotifier {
   @override
   int build() {
-    final config = ref.watch(boardConfigNotifierProvider);
-    return config.mineCount;
+    final difficulty = ref.watch(playingDifficultyNotifierProvider);
+    return difficulty.mineCount;
   }
 
   void increase() {

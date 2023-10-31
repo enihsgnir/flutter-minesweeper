@@ -7,8 +7,8 @@ part 'cells_left_provider.g.dart';
 class CellsLeftNotifier extends _$CellsLeftNotifier {
   @override
   int build() {
-    final config = ref.watch(boardConfigNotifierProvider);
-    return config.rowCount * config.colCount;
+    final difficulty = ref.watch(playingDifficultyNotifierProvider);
+    return difficulty.rowCount * difficulty.colCount;
   }
 
   void decrease() {
