@@ -29,7 +29,5 @@ class Game with _$Game {
   List<(int, int)> get mines => mineIndices.map(difficulty.toPos).toList();
   List<(int, int)> get log => logIndices.map(difficulty.toPos).toList();
 
-  String get seed => "";
-
   factory Game.fromJson(Map<String, Object?> json) => _$GameFromJson(json);
 }
