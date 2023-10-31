@@ -18,16 +18,16 @@ class Game with _$Game {
     @Id() required String id,
     required String userId,
     required Difficulty difficulty,
-    required List<int> mineIndexes,
-    required List<int> logIndexes,
+    required List<int> mineIndices,
+    required List<int> logIndices,
     required int playTime,
     required DateTime createdAt,
   }) = _Game;
 
   const Game._();
 
-  List<(int, int)> get mines => mineIndexes.map(difficulty.toPos).toList();
-  List<(int, int)> get log => logIndexes.map(difficulty.toPos).toList();
+  List<(int, int)> get mines => mineIndices.map(difficulty.toPos).toList();
+  List<(int, int)> get log => logIndices.map(difficulty.toPos).toList();
 
   String get seed => "";
 

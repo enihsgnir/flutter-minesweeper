@@ -27,8 +27,8 @@ class HistoryNotifier extends _$HistoryNotifier {
       id: "",
       userId: user.id,
       difficulty: difficulty,
-      mineIndexes: mines.map(toIndex).toList(),
-      logIndexes: log.map(toIndex).toList(),
+      mineIndices: mines.map(toIndex).toList(),
+      logIndices: log.map(toIndex).toList(),
       playTime: time,
       createdAt: DateTime.now(),
     );
