@@ -16,20 +16,19 @@ class HistoryNotifier extends _$HistoryNotifier {
   Game _toGame() {
     final user = ref.read(userNotifierProvider);
 
-    final config = ref.read(boardConfigNotifierProvider);
+    final difficulty = ref.read(playingDifficultyNotifierProvider);
     final mines = ref.read(minesNotifierProvider);
     final log = ref.read(logNotifierProvider);
     final time = ref.read(playTimeNotifierProvider);
 
-    final toIndex = config.toIndex;
+    final toIndex = difficulty.toIndex;
 
     return Game(
       id: "",
       userId: user.id,
-      row: config.rowCount,
-      col: config.colCount,
-      mineIndexes: mines.map(toIndex).toList(),
-      logIndexes: log.map(toIndex).toList(),
+      difficulty: difficulty,
+      mineIndices: mines.map(toIndex).toList(),
+      logIndices: log.map(toIndex).toList(),
       playTime: time,
       createdAt: DateTime.now(),
     );

@@ -1,13 +1,14 @@
 import 'dart:math';
 
+import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  final config = BoardConfig.medium();
-  final adjacentsOf = config.adjacentsOf;
-  final toIndex = config.toIndex;
-  final toPos = config.toPos;
+  const difficulty = Difficulty.medium;
+  final adjacentsOf = difficulty.adjacentsOf;
+  final toIndex = difficulty.toIndex;
+  final toPos = difficulty.toPos;
 
   const pos = (4, 2);
 
@@ -48,8 +49,8 @@ void main() {
     });
 
     test("should be different from the original", () {
-      for (int i = 0; i < config.rowCount; i++) {
-        for (int j = 0; j < config.colCount; j++) {
+      for (int i = 0; i < difficulty.rowCount; i++) {
+        for (int j = 0; j < difficulty.colCount; j++) {
           expect(-(i, j), isNot((i, j)));
         }
       }
@@ -57,20 +58,20 @@ void main() {
 
     test("should be bijective", () {
       final range = <(int, int)>{};
-      for (int i = 0; i < config.rowCount; i++) {
-        for (int j = 0; j < config.colCount; j++) {
+      for (int i = 0; i < difficulty.rowCount; i++) {
+        for (int j = 0; j < difficulty.colCount; j++) {
           range.add(-(i, j));
         }
       }
 
-      expect(range, hasLength(config.rowCount * config.colCount));
+      expect(range, hasLength(difficulty.rowCount * difficulty.colCount));
     });
 
     test("should have exclusive domain and range", () {
       final domain = <(int, int)>[];
       final range = <(int, int)>[];
-      for (int i = 0; i < config.rowCount; i++) {
-        for (int j = 0; j < config.colCount; j++) {
+      for (int i = 0; i < difficulty.rowCount; i++) {
+        for (int j = 0; j < difficulty.colCount; j++) {
           domain.add((i, j));
           range.add(-(i, j));
         }

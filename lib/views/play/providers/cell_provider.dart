@@ -20,9 +20,9 @@ class CellNotifier extends _$CellNotifier {
   void setMine() {
     state = state.copyWith(hasMine: true);
 
-    final config = ref.watch(boardConfigNotifierProvider);
+    final difficulty = ref.watch(playingDifficultyNotifierProvider);
     final pos = (state.row, state.col);
-    config.adjacentsOf(pos).forEach((element) {
+    difficulty.adjacentsOf(pos).forEach((element) {
       ref.read(cellNotifierProvider(element).notifier).increaseMineCount();
     });
   }
@@ -52,8 +52,8 @@ class CellNotifier extends _$CellNotifier {
       ref.read(cellsLeftNotifierProvider.notifier).decrease();
 
       if (cell.minesAround == MineCount.zero) {
-        final config = ref.read(boardConfigNotifierProvider);
-        config
+        final difficulty = ref.read(playingDifficultyNotifierProvider);
+        difficulty
             .adjacentsOf(p)
             .where((element) => !_cellAt(element).hasMine)
             .forEach(q.add);

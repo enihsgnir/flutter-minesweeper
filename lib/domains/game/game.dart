@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore_odm/cloud_firestore_odm.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'game.freezed.dart';
@@ -16,24 +17,21 @@ class Game with _$Game {
   const factory Game({
     @Id() required String id,
     required String userId,
-    required int row,
-    required int col,
-    required List<int> mineIndexes,
-    required List<int> logIndexes,
+    required Difficulty difficulty,
+    required List<int> mineIndices,
+    required List<int> logIndices,
     required int playTime,
     required DateTime createdAt,
   }) = _Game;
 
   const Game._();
 
-  List<(int, int)> get mines =>
-      mineIndexes.map((e) => (e ~/ col, e % col)).toList();
+  int get rowCount => difficulty.rowCount;
+  int get colCount => difficulty.colCount;
+  int get mineCount => difficulty.mineCount;
 
-  List<(int, int)> get log => logIndexes
-      .map((e) => (e.sign * (e.abs() ~/ col), e.sign * (e.abs() % col)))
-      .toList();
-
-  String get seed => "";
+  List<(int, int)> get mines => mineIndices.map(difficulty.toPos).toList();
+  List<(int, int)> get log => logIndices.map(difficulty.toPos).toList();
 
   factory Game.fromJson(Map<String, Object?> json) => _$GameFromJson(json);
 }

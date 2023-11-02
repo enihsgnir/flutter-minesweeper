@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,16 +14,16 @@ class MinesNotifier extends _$MinesNotifier {
   }
 
   void generate((int, int) firstClick) {
-    final config = ref.read(boardConfigNotifierProvider);
+    final difficulty = ref.read(playingDifficultyNotifierProvider);
 
     final mines = <(int, int)>{};
-    final offset = _firstClickOffset(firstClick, config);
+    final offset = _firstClickOffset(firstClick, difficulty);
     mines.addAll(offset);
 
     final random = Random();
-    while (mines.length < config.mineCount + offset.length) {
-      final row = random.nextInt(config.rowCount);
-      final col = random.nextInt(config.colCount);
+    while (mines.length < difficulty.mineCount + offset.length) {
+      final row = random.nextInt(difficulty.rowCount);
+      final col = random.nextInt(difficulty.colCount);
       mines.add((row, col));
     }
 
@@ -37,11 +38,11 @@ class MinesNotifier extends _$MinesNotifier {
 
   Set<(int, int)> _firstClickOffset(
     (int, int) firstClick,
-    BoardConfig config,
+    Difficulty difficulty,
   ) {
     return {
       firstClick,
-      ...config.adjacentsOf(firstClick),
+      ...difficulty.adjacentsOf(firstClick),
     };
   }
 }
