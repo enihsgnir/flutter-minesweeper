@@ -4,11 +4,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const appBarColor = Color.fromRGBO(84, 116, 54, 1);
 
-class PlayPage extends ConsumerWidget {
+class PlayPage extends ConsumerStatefulWidget {
   const PlayPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PlayPage> createState() => _PlayPageState();
+}
+
+class _PlayPageState extends ConsumerState<PlayPage> {
+  @override
+  Widget build(BuildContext context) {
     ref.watch(logNotifierProvider);
     ref.watch(historyNotifierProvider);
 
@@ -17,10 +22,10 @@ class PlayPage extends ConsumerWidget {
         ref.read(playTimeNotifierProvider.notifier).stop();
         switch (next) {
           case WinStatus.over:
-            showOverDialog(context);
+            showOverDialog();
           case WinStatus.win:
             ref.read(historyNotifierProvider.notifier).createGameRecord();
-            showWinDialog(context);
+            showWinDialog();
         }
       }
     });
@@ -67,7 +72,7 @@ class PlayPage extends ConsumerWidget {
     );
   }
 
-  Future<void> showOverDialog(BuildContext context) async {
+  Future<void> showOverDialog() async {
     return showDialog(
       context: context,
       barrierDismissible: false,
@@ -80,7 +85,7 @@ class PlayPage extends ConsumerWidget {
     );
   }
 
-  Future<void> showWinDialog(BuildContext context) async {
+  Future<void> showWinDialog() async {
     return showDialog(
       context: context,
       barrierDismissible: false,
