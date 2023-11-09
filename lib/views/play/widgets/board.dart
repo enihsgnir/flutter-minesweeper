@@ -39,8 +39,7 @@ class Board extends ConsumerWidget {
             children: List.generate(
               difficulty.rowCount * difficulty.colCount,
               (index) {
-                final colCount = difficulty.colCount;
-                final pos = (index ~/ colCount, index % colCount);
+                final pos = difficulty.toPos(index);
                 return BoardSquare(pos);
               },
             ),
