@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-const appBarColor = Color.fromRGBO(84, 116, 54, 1);
-
 class PlayPage extends ConsumerStatefulWidget {
   const PlayPage({super.key});
 
@@ -35,39 +33,7 @@ class _PlayPageState extends ConsumerState<PlayPage> {
     return Scaffold(
       appBar: AppBar(),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              color: appBarColor,
-              width: difficulty.size * difficulty.colCount,
-              height: 60,
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  MinesLeftCounter(),
-                  PlayTimeStopwatch(),
-                ],
-              ),
-            ),
-            SizedBox(
-              width: difficulty.size * difficulty.colCount,
-              height: difficulty.size * difficulty.rowCount,
-              child: GridView.count(
-                shrinkWrap: true,
-                crossAxisCount: difficulty.colCount,
-                children: List.generate(
-                  difficulty.rowCount * difficulty.colCount,
-                  (index) {
-                    final colCount = difficulty.colCount;
-                    final pos = (index ~/ colCount, index % colCount);
-                    return BoardSquare(pos);
-                  },
-                ),
-              ),
-            ),
-          ],
-        ),
+        child: Board(difficulty: difficulty),
       ),
     );
   }
