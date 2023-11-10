@@ -20,3 +20,4 @@ export 'widgets/board_square.dart';
 export 'widgets/done_dialog.dart';
 export 'widgets/mines_left_counter.dart';
 export 'widgets/play_time_stopwatch.dart';
+export 'widgets/playing_difficulty_selector.dart';
