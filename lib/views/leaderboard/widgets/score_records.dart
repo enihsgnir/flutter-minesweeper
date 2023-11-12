@@ -1,14 +1,52 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_minesweeper/domains/game/game.dart';
+import 'package:flutter_minesweeper/domains/game/game_repository.dart';
 import 'package:flutter_minesweeper/views/leaderboard/leaderboard_view.dart';
 import 'package:flutter_minesweeper/views/play/play_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ScoreRecords extends ConsumerWidget {
+class ScoreRecords extends ConsumerStatefulWidget {
   const ScoreRecords({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final records = ref.watch(recordsNotifierProvider);
+  ConsumerState<ScoreRecords> createState() => _ScoreRecordsState();
+}
+
+class _ScoreRecordsState extends ConsumerState<ScoreRecords> {
+  late final StreamSubscription<GameQuerySnapshot> _listener;
+  @override
+  void initState() {
+    super.initState();
+
+    _listener = gameRef.snapshots().listen((event) async {
+      final recordsNotifier = ref.read(recordsNotifierProvider.notifier);
+      final records = await GameRepository().getRecords();
+      recordsNotifier.clear();
+
+      for (final record in records) {
+        recordsNotifier.add(record);
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _listener.cancel();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final records = ref
+        .watch(recordsNotifierProvider)
+        .where(
+          (record) =>
+              record.difficulty == ref.watch(difficultyNotifierProvider),
+        )
+        .toList();
 
     return (records.isNotEmpty)
         ? Column(
