@@ -22,12 +22,7 @@ class _ScoreRecordsState extends ConsumerState<ScoreRecords> {
 
     _listener = gameRef.snapshots().listen((event) async {
       final recordsNotifier = ref.read(recordsNotifierProvider.notifier);
-      final records = await GameRepository().getRecords();
-      recordsNotifier.clear();
-
-      for (final record in records) {
-        recordsNotifier.add(record);
-      }
+      recordsNotifier.state = await GameRepository().getRecords();
     });
   }
 

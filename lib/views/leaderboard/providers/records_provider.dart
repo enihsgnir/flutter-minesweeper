@@ -10,11 +10,8 @@ class RecordsNotifier extends _$RecordsNotifier {
     return [];
   }
 
-  void clear() {
-    state = [];
-  }
-
-  void add(GameRecord record) {
-    state = [...state, record];
+  @override
+  set state(List<GameRecord> records) {
+    state = records;
   }
 }
