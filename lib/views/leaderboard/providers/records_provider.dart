@@ -11,7 +11,5 @@ class RecordsNotifier extends _$RecordsNotifier {
   }
 
   @override
-  set state(List<GameRecord> records) {
-    state = records;
-  }
+  set state(List<GameRecord> records);
 }
