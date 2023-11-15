@@ -8,14 +8,10 @@ class GameRepository {
     return;
   }
 
-  Future<List<GameRecord>> getRecords(Difficulty difficulty) async {
+  Future<List<GameRecord>> getRecords() async {
     final result = <GameRecord>[];
 
-    final snapshot = await gameRef
-        .whereDifficulty(isEqualTo: difficulty)
-        .orderByPlayTime()
-        .limit(10)
-        .get();
+    final snapshot = await gameRef.orderByPlayTime().limit(10).get();
 
     for (final game in snapshot.docs.map((e) => e.data)) {
       final user = await UserRepository().getById(game.userId);
@@ -30,6 +26,7 @@ class GameRepository {
         GameRecord(
           nickname: user.nickname,
           playTime: game.playTime,
+          difficulty: game.difficulty,
           createdAt: game.createdAt,
         ),
       );
