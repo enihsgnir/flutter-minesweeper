@@ -26,7 +26,7 @@ class Board extends ConsumerWidget {
       children: [
         Container(
           color: appBarColor,
-          width: difficulty.size * difficulty.colCount,
+          width: difficulty.width,
           height: 60,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -38,8 +38,8 @@ class Board extends ConsumerWidget {
           ),
         ),
         SizedBox(
-          width: difficulty.size * difficulty.colCount,
-          height: difficulty.size * difficulty.rowCount,
+          width: difficulty.width,
+          height: difficulty.height,
           child: GridView.count(
             shrinkWrap: true,
             crossAxisCount: difficulty.colCount,

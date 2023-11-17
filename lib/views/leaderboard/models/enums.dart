@@ -21,6 +21,9 @@ enum Difficulty {
     };
   }
 
+  double get width => size * colCount;
+  double get height => size * rowCount;
+
   Iterable<(int, int)> adjacentsOf((int, int) pos) sync* {
     for (final dr in [-1, 0, 1]) {
       for (final dc in [-1, 0, 1]) {
