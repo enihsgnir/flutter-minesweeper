@@ -9,4 +9,7 @@ class PlayingDifficultyNotifier extends _$PlayingDifficultyNotifier {
   Difficulty build() {
     return Difficulty.medium;
   }
+
+  @override
+  set state(Difficulty value);
 }
