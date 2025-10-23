@@ -7,7 +7,13 @@ part 'user_provider.g.dart';
 class UserNotifier extends _$UserNotifier {
   @override
   User build() {
-    throw UnimplementedError();
+    // throw UnimplementedError();
+    // TODO: remove dummy initial user
+    return User(
+      id: "anonymous",
+      nickname: "Anonymous",
+      createdAt: DateTime.now(),
+    );
   }
 
   @override
