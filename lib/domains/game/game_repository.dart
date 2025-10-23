@@ -34,4 +34,32 @@ class GameRepository {
 
     return result;
   }
+
+  Future<List<GameRecord>> getRecordsByDifficulty(Difficulty difficulty) async {
+    final result = <GameRecord>[];
+
+    final snapshot = await gameRef
+        .whereDifficulty(isEqualTo: difficulty)
+        .orderByPlayTime()
+        .limit(10)
+        .get();
+
+    for (final game in snapshot.docs.map((e) => e.data)) {
+      final user = await UserRepository().getById(game.userId);
+      if (user == null) {
+        continue;
+      }
+
+      result.add(
+        GameRecord(
+          nickname: user.nickname,
+          playTime: game.playTime,
+          difficulty: game.difficulty,
+          createdAt: game.createdAt,
+        ),
+      );
+    }
+
+    return result;
+  }
 }

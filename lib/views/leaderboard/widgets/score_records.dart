@@ -35,6 +35,14 @@ class _ScoreRecordsState extends ConsumerState<ScoreRecords> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(
+      difficultyNotifierProvider,
+      (previous, next) async {
+        ref.read(recordsNotifierProvider.notifier).state =
+            await GameRepository().getRecordsByDifficulty(next);
+      },
+    );
+
     final records = ref
         .watch(recordsNotifierProvider)
         .where(
