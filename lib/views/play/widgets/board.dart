@@ -31,6 +31,12 @@ class Board extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              IconButton(
+                onPressed: () {
+                  ref.read(boardStatusNotifierProvider.notifier).reset();
+                },
+                icon: const Icon(Icons.restart_alt, color: Colors.white),
+              ),
               PlayingDifficultySelector(fixAt: fromGame ? difficulty : null),
               const MinesLeftCounter(),
               const PlayTimeStopwatch(),

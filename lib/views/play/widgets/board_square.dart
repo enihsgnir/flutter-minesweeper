@@ -19,8 +19,10 @@ class BoardSquare extends ConsumerWidget {
       onTap: () {
         if (boardStatus == BoardStatus.ready) {
           ref.read(minesNotifierProvider.notifier).generate(pos);
-          ref.read(boardStatusNotifierProvider.notifier).next();
+          ref.read(boardStatusNotifierProvider.notifier).setPlaying();
           ref.read(playTimeNotifierProvider.notifier).start();
+        } else if (boardStatus == BoardStatus.done) {
+          return;
         }
 
         if (cell.status != CellStatus.closed) {

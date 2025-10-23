@@ -10,12 +10,16 @@ class BoardStatusNotifier extends _$BoardStatusNotifier {
     return BoardStatus.ready;
   }
 
-  void next() {
-    state = state.toggle();
+  void setPlaying() {
+    state = BoardStatus.playing;
+  }
+
+  void setDone() {
+    state = BoardStatus.done;
   }
 
   void reset() {
-    if (state == BoardStatus.playing) {
+    if (state != BoardStatus.ready) {
       ref.read(historyNotifierProvider.notifier).writeCurrentBoard();
 
       ref.invalidateSelf();

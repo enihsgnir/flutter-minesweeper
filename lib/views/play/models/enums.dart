@@ -4,14 +4,8 @@ import 'package:flutter/material.dart';
 
 enum BoardStatus {
   ready,
-  playing;
-
-  BoardStatus toggle() {
-    return switch (this) {
-      ready => playing,
-      playing => ready,
-    };
-  }
+  playing,
+  done,
 }
 
 enum CellStatus {

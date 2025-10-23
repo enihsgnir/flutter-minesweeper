@@ -21,6 +21,13 @@ class DoneDialog extends ConsumerWidget {
       actions: [
         TextButton(
           onPressed: () {
+            ref.read(boardStatusNotifierProvider.notifier).setDone();
+            context.pop();
+          },
+          child: const Text("View board"),
+        ),
+        TextButton(
+          onPressed: () {
             ref.read(boardStatusNotifierProvider.notifier).reset();
             context.pop();
           },
