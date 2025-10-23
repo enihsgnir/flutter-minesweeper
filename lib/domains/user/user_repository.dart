@@ -32,4 +32,26 @@ class UserRepository {
     final snapshot = await userRef.doc(id).get();
     return snapshot.data;
   }
+
+  Future<User?> updateNickname(String id, String nickname) async {
+    final snapshot = await userRef
+        .whereNickname(isEqualTo: nickname)
+        .whereDocumentId(isNotEqualTo: id)
+        .get();
+
+    // nickname already taken
+    if (snapshot.docs.isNotEmpty) {
+      return null;
+    }
+
+    final userSnapshot = await userRef.doc(id).get();
+    final user = userSnapshot.data;
+    if (user == null) {
+      return null;
+    }
+
+    final updatedUser = user.copyWith(nickname: nickname);
+    await userRef.doc(id).set(updatedUser);
+    return updatedUser;
+  }
 }

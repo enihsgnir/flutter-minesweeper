@@ -9,6 +9,9 @@ class UserNotifier extends _$UserNotifier {
   User build() {
     throw UnimplementedError();
   }
+
+  @override
+  set state(User user);
 }
 
 class UserOverrideNotifier extends UserNotifier {

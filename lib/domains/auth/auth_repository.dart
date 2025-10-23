@@ -23,4 +23,18 @@ class AuthRepository {
 
     return user;
   }
+
+  Future<User> getCurrentUser() async {
+    final authUser = FirebaseAuth.instance.currentUser;
+    if (authUser == null) {
+      throw Exception("no-current-user");
+    }
+
+    final user = await UserRepository().getById(authUser.uid);
+    if (user == null) {
+      throw Exception("not-created");
+    }
+
+    return user;
+  }
 }
