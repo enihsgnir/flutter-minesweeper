@@ -61,6 +61,30 @@ class CellNotifier extends _$CellNotifier {
     }
   }
 
+  bool _isReadyToOpenAdjacent() {
+    final difficulty = ref.read(playingDifficultyNotifierProvider);
+    final adjacents = difficulty.adjacentsOf(pos);
+    final flaggedCount = adjacents
+        .where((element) => _cellAt(element).status == CellStatus.flagged)
+        .length;
+    return flaggedCount == state.minesAround.index;
+  }
+
+  void openAdjacent() {
+    if (!_isReadyToOpenAdjacent()) {
+      return;
+    }
+
+    final difficulty = ref.read(playingDifficultyNotifierProvider);
+    final adjacents = difficulty.adjacentsOf(pos);
+    for (final p in adjacents) {
+      final cell = _cellAt(p);
+      if (cell.status == CellStatus.closed) {
+        ref.read(cellNotifierProvider(p).notifier).setOpen();
+      }
+    }
+  }
+
   void toggle() {
     switch (state.status) {
       case CellStatus.closed:

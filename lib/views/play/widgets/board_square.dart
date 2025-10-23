@@ -25,8 +25,10 @@ class BoardSquare extends ConsumerWidget {
           return;
         }
 
-        if (cell.status != CellStatus.closed) {
+        if (cell.status == CellStatus.flagged) {
           return;
+        } else if (cell.status == CellStatus.open) {
+          ref.read(cellNotifierProvider(pos).notifier).openAdjacent();
         }
 
         if (cell.hasMine) {
