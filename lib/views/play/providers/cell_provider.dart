@@ -80,7 +80,7 @@ class CellNotifier extends _$CellNotifier {
     for (final p in adjacents) {
       final cell = _cellAt(p);
       if (cell.status == CellStatus.closed) {
-        ref.read(cellNotifierProvider(p).notifier).setOpen();
+        ref.read(cellNotifierProvider(p).notifier).open();
       }
     }
   }
